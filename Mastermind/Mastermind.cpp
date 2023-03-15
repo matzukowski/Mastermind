@@ -12,47 +12,27 @@ using namespace std;
 
 void MoveCarriageHome()
 {
-	stringstream ss;
-
-	ss << (char)0x1b << "[H\0";
-
-	cout << ss.str();
+	cout << "\033[H\0";
 }
 
 void MoveCarriageToXY(int x, int y)
 {
-	stringstream ss;
-
-	ss << (char)0x1b << '[' << y << ';' << x << "H\0";
-
-	cout << ss.str();
+	cout << "\033[" + to_string(y) + ';' + to_string(x) + "H\0";
 }
 
 void MoveCarriageLeft(int n)
 {
-	stringstream ss;
-
-	ss << (char)0x1b << '[' << n << "D\0";
-
-	cout << ss.str();
+	cout << "\033[" + to_string(n) + "D\0";
 }
 
 void MoveCarriageRight(int n)
 {
-	stringstream ss;
-
-	ss << (char)0x1b << '[' << n << "C\0";
-
-	cout << ss.str();
+	cout << "\033[" + to_string(n) + "C\0";
 }
 
-void ClearScreen()
+void ClearScreenFromCursorDown()
 {
-	stringstream ss;
-
-	ss << (char)0x1b << "[2J\0";
-
-	cout << ss.str();
+	cout << "\033[J\0";
 }
 
 int main()
@@ -63,7 +43,7 @@ int main()
 
 	const int roundsNumber = 10;
 
-	int numbersRange = 6; // 6 for a code containing the numbers 1-6, max 9
+	int numbersRange = 6; // 6 for a code containing numbers 1-6, max 9
 
 	while (true)
 	{
@@ -90,7 +70,7 @@ int main()
 
 			string currentGuessString = "0000";
 
-			while ("true")
+			while (true)
 			{
 				MoveCarriageToXY(3, 4 + currentRound);
 
@@ -185,17 +165,21 @@ int main()
 		MoveCarriageToXY(0, 6 + roundsNumber);
 
 		cout << "     " << leftTopCorner << string(4, horizontalWall) << rightTopCorner << "\n";
-
-		if (codeToGuess == -1) cout << "     " << verticalWall << "WIN!" << verticalWall << "\n";
-		else cout << "     " << verticalWall << "LOSE" << verticalWall << "\n";
-
+		cout << "     " << verticalWall << (codeToGuess == -1 ? "WIN!" : "LOSE") << verticalWall << "\n";
 		cout << "     " << leftBottomCorner << string(4, horizontalWall) << rightBottomCorner << "\n";
+
+		if (codeToGuess != -1)
+		{
+			cout << "     " << leftTopCorner << string(4, horizontalWall) << rightTopCorner << "\n";
+			cout << "     " << verticalWall << codeToGuess << verticalWall << "\n";
+			cout << "     " << leftBottomCorner << string(4, horizontalWall) << rightBottomCorner << "\n";
+		}
 
 		MoveCarriageToXY(9, 3 + currentRound);
 
 		_getch();
 
-		ClearScreen();
 		MoveCarriageHome();
+		ClearScreenFromCursorDown();
 	}
 }
