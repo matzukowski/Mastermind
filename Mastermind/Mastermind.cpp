@@ -10,27 +10,27 @@
 
 using namespace std;
 
-void MoveCarriageHome()
+void moveCarriageHome()
 {
 	cout << "\033[H\0";
 }
 
-void MoveCarriageToXY(int x, int y)
+void moveCarriageToXY(int x, int y)
 {
 	cout << "\033[" + to_string(y) + ';' + to_string(x) + "H\0";
 }
 
-void MoveCarriageLeft(int n)
+void moveCarriageLeft(int n)
 {
 	cout << "\033[" + to_string(n) + "D\0";
 }
 
-void MoveCarriageRight(int n)
+void moveCarriageRight(int n)
 {
 	cout << "\033[" + to_string(n) + "C\0";
 }
 
-void ClearScreenFromCursorDown()
+void clearScreenFromCursorDown()
 {
 	cout << "\033[J\0";
 }
