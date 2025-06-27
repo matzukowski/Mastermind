@@ -1,5 +1,6 @@
 # Mastermind
-Console implementation of Mastermind game with numbers instead of colors. Range of numbers and number of rounds easy to change in code.
+
+A console-based implementation of the classic Mastermind game, using numbers instead of colors. You can modify the number range and the number of rounds in the code.
 
 No system("cls"). Escape codes used to manipulate console carriage.
 
